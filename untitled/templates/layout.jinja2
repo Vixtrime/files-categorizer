@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% block title %}
+        <title>Filemanager</title>
+    {% endblock %}
+    <link rel="stylesheet" href="{{ request.static_url('untitled:static/css/bootstrap.css') }}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{{ request.static_url('untitled:static/css/treetest.css') }}">
+    <link rel="stylesheet" href="{{ request.static_url('untitled:static/css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ request.static_url('untitled:static/css/portfolio-item.css') }}">
+</head>
+<body style="padding-top: 0px">
+<nav style="border-radius: 0px" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}
+    <div class="container" style="margin-top:30px;">
+        <div class="row">
+            <div class="col-md-6">
+                <ul id="tree3">
+                    {% for item in filesystem recursive %}
+                        {% if item['type']=='directory' %}
+                            <li><a href="{{ item['path'] }}" filetype="{{ item['type'] }}"
+                                   fileName="{{ item['name'] }}">{{ item['name'] }}</a>
+                            <ul>{{ loop(item['childs']) }}</ul>
+                        {% endif %}
+                    {% if item['type']=='file' %}
+                        <li><a class="drag-file ui-draggable" filePath="{{ item['path'] }}"
+                               fileName="{{ item['name'] }}">{{ item['name'] }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group" style="z-index: 1">
+                    {% for i in category %}
+                        <li class="list-group-item droppable" style="text-align: center"
+                            categoryId="{{ i.category_id }}" categoryName="{{ i.category_name }}"><a
+                                href="{{ i.category_name }}">{{ i.category_name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {{ fp_exist }}
+        </div>
+    </div>
+{% endblock %}
+<footer class="py-5 bg-dark fixed-bottom">
+    <div class="container">
+        <p class="m-0 text-center text-white"></p>
+    </div>
+</footer>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="{{ request.static_url('untitled:static/js/jquery-3.3.1.js') }}"></script>
+<script type="text/javascript" src="{{ request.static_url('untitled:static/js/jquery-ui.js') }}"></script>
+<script type="text/javascript" src="{{ request.static_url('untitled:static/js/bootstrap-notify.js') }}"></script>
+<script type="text/javascript" src="{{ request.static_url('untitled:static/js/tree.js') }}"></script>
+<script type="text/javascript" src="{{ request.static_url('untitled:static/js/dropdown.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "layout.jinja2" %}
+{%  block title %}
+    {{ pagename['category_name'] }}
+{%  endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {{ category_id }}
+            {% for foo in category_content %}
+                <div class="col-md-3" style="padding: 25px 25px"><img
+                        src="{{ foo['file_path'] }}"><br>{{ foo['file_name'] }}</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
