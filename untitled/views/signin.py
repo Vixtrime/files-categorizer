@@ -25,7 +25,7 @@ def sign_in(request):
 
     return {}
 
-# @view_config(route_name='signindata', renderer='ajax')
+# @view_config(route_name='signindata', renderer='json')
 # def sign_in_data(request):
 #
 #     login = request.params['email']
